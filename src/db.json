@@ -1,0 +1,137 @@
+{
+
+    "users": [
+        {
+            "id" : "001",
+            "login":"Richard",
+            "password":"123",
+            "registed_at":"2025-07-24",
+            "role_id": 0
+        }
+    ],
+
+    "roles":[
+        {
+            "id": 0 ,
+            "name": "admin"
+        },
+
+        {
+            "id": 1 ,
+            "name": "moderator"
+        },
+         {
+            "id": 2 ,
+            "name": "reader"
+        },
+         {
+            "id": 4 ,
+            "name": "guest"
+        }
+    ],
+
+
+    "posts" : [
+        {
+            "id" : "001",
+            "title":"Тут будет крутое описание",
+            "image_url":"https://picsum.photos/200/150",
+            "content":"Интересный контент",
+            "published_at":"2025-07-24"
+        },
+           {
+            "id" : "002",
+            "title":"Тут будет крутое описание 1",
+            "image_url":"https://picsum.photos/200/150",
+            "content":"Интересный контент",
+            "published_at":"2025-07-07"
+        },
+           {
+            "id" : "003",
+            "title":"Тут будет крутое описание 2",
+            "image_url":"https://picsum.photos/200/150",
+            "content":"Интересный контент",
+            "published_at":"2025-07-09"
+        },
+           {
+            "id" : "004",
+            "title":"Тут будет крутое описание 3",
+            "image_url":"https://picsum.photos/200/150",
+            "content":"Интересный контент",
+            "published_at":"2025-07-15"
+        },
+           {
+            "id" : "005",
+            "title":"Тут будет крутое описание 4",
+            "image_url":"https://picsum.photos/200/150",
+            "content":"Интересный контент",
+            "published_at":"2025-07-14"
+        },
+           {
+            "id" : "006",
+            "title":"Тут будет крутое описание 5",
+            "image_url":"https://picsum.photos/200/150",
+            "content":"Интересный контент",
+            "published_at":"2025-07-24"
+        },
+           {
+            "id" : "007",
+            "title":"Тут будет крутое описание 6",
+            "image_url":"https://picsum.photos/200/150",
+            "content":"Интересный контент",
+            "published_at":"2025-07-24"
+        },
+           {
+            "id" : "008",
+            "title":"Тут будет крутое описание 7",
+            "image_url":"https://picsum.photos/200/150",
+            "content":"Интересный контент",
+            "published_at":"2025-07-14"
+        },
+           {
+            "id" : "009",
+            "title":"Тут будет крутое описание 8",
+            "image_url":"https://picsum.photos/200/150",
+            "content":"Интересный контент",
+            "published_at":"2025-07-04"
+        },
+           {
+            "id" : "010",
+            "title":"Тут будет крутое описание 9",
+            "image_url":"https://picsum.photos/200/150",
+            "content":"Интересный контент",
+            "published_at":"2025-07-22"
+        },
+           {
+            "id" : "011",
+            "title":"Тут будет крутое описание 10",
+            "image_url":"https://picsum.photos/200/150",
+            "content":"Интересный контент",
+            "published_at":"2025-07-21"
+        },
+           {
+            "id" : "012",
+            "title":"Тут будет крутое описание 11",
+            "image_url":"https://picsum.photos/200/150",
+            "content":"Интересный контент",
+            "published_at":"2025-07-26"
+        },
+           {
+            "id" : "013",
+            "title":"Тут будет крутое описание 12",
+            "image_url":"https://picsum.photos/200/150",
+            "content":"Интересный контент",
+            "published_at":"2025-07-27"
+        }
+    ],
+
+     "comments" : [
+        {
+            "id" : "001",
+            "author_id":"Richard",
+            "post_id":"123",
+            "content":"2025-07-24"
+        }
+    ]
+}
+
