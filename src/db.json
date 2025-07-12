@@ -3,9 +3,16 @@
     "users": [
         {
             "id" : "001",
-            "login":"Richard",
-            "password":"123",
-            "registed_at":"2025-07-24",
+            "login": "Richard1",
+            "password": "1234566h",
+            "registed_at": "2025-07-24",
+            "role_id": 0
+        },
+         {
+            "id" : "002",
+            "login": "Richard2",
+            "password": "1234566h11",
+            "registed_at": "2025-07-24",
             "role_id": 0
         }
     ],

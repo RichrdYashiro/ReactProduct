@@ -24,7 +24,7 @@
 
 Схема для состояния на Redux Store (на клиенте):
 
-- user: id / login / roleId
+- user: id / login / roleId / session
 - posts: массив post : id / title / imageUrl / publishedAt / commentsCount
 - post: массив post : id / title / imageUrl / content / publishedAt / comments массив comment : id / author / content / publihedAt
 - users: массив user: id / login / registeredAt / role

@@ -1,11 +1,16 @@
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector, useStore } from 'react-redux';
+import { Navigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { server } from '../../../bff/server';
-import { useState } from 'react';
-import styled from 'styled-components';
 import { Input, H2, Button } from '../../../components';
-import { Link } from 'react-router-dom';
+import { SetUser } from '../../../actions';
+import styled from 'styled-components';
+import { selectUserRole } from '../../selectors';
+import { ROLE } from '../../../constants';
 
 const authFormSchema = yup.object().shape({
 	login: yup
@@ -27,6 +32,7 @@ const AuthorizationContainer = ({ className }) => {
 	const {
 		register,
 		handleSubmit,
+		reset,
 		formState: { errors },
 	} = useForm({
 		defaultValues: {
@@ -37,6 +43,20 @@ const AuthorizationContainer = ({ className }) => {
 	});
 
 	const [serverError, setServerError] = useState(null);
+	const dispatch = useDispatch();
+	const store = useStore();
+	const roleId = useSelector(selectUserRole);
+	useEffect(() => {
+		let currentWasLogout = store.getState().app.wasLogout;
+		return store.subscribe(() => {
+			let prevWasLogout = currentWasLogout;
+			currentWasLogout = store.getState().app.wasLogout;
+
+			if (currentWasLogout !== prevWasLogout) {
+				reset();
+			}
+		});
+	}, [reset, store]);
 	const StyledLink = styled(Link)`
 		color: #2c282d;
 		font-weight: 700;
@@ -49,14 +69,20 @@ const AuthorizationContainer = ({ className }) => {
 	`;
 
 	const onSubmit = ({ login, password }) => {
-		server.authorize(login, password).then(({ res, error }) => {
+		server.authorize(login, password).then(({ error, res }) => {
 			if (error) {
 				setServerError(`Ошибка запроса ${error}`);
+				return;
 			}
+			dispatch(SetUser(res));
 		});
 	};
 	const formError = errors?.login?.message || errors?.password?.message;
 	const errorMessage = formError || serverError;
+
+	if (roleId !== ROLE.GUEST) {
+		return <Navigate to="/"></Navigate>;
+	}
 
 	return (
 		<div className={className}>
