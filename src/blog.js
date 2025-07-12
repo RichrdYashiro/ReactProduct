@@ -1,6 +1,7 @@
 import { Routes, Route } from 'react-router-dom';
 import styled from 'styled-components';
 import { Header, Footer } from './components';
+import { Authorization } from './components/pages';
 const Content = styled.div`
 	padding: 120px 0;
 `;
@@ -24,10 +25,9 @@ export const Blog = () => {
 			<div className="App">
 				<header className="App-header">
 					<Content>
-						<H2>Контент страницы</H2>
 						<Routes>
 							<Route path="/" element={<div>Главная страница</div>} />
-							<Route path="/login" element={<div>Авторизация</div>} />
+							<Route path="/login" element={<Authorization />} />
 							<Route path="/register" element={<div>Регистрация</div>} />
 							<Route path="/users" element={<div>Пользователи</div>} />
 							<Route path="/post" element={<div>Новая статья</div>} />
