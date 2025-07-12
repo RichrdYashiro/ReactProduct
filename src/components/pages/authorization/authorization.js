@@ -1,9 +1,11 @@
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { server } from '../../../bff';
+import { server } from '../../../bff/server';
 import { useState } from 'react';
 import styled from 'styled-components';
+import { Input, H2, Button } from '../../../components';
+import { Link } from 'react-router-dom';
 
 const authFormSchema = yup.object().shape({
 	login: yup
@@ -34,7 +36,17 @@ const AuthorizationContainer = ({ className }) => {
 		resolver: yupResolver(authFormSchema),
 	});
 
-	const [serverError, setServerError] = useState();
+	const [serverError, setServerError] = useState(null);
+	const StyledLink = styled(Link)`
+		color: #2c282d;
+		font-weight: 700;
+		text-decoration: none;
+	`;
+	const ErrorMessage = styled.div`
+		color: #fff;
+		background: #ff222296;
+		border: 1px solid #333;
+	`;
 
 	const onSubmit = ({ login, password }) => {
 		server.authorize(login, password).then(({ res, error }) => {
@@ -44,20 +56,36 @@ const AuthorizationContainer = ({ className }) => {
 		});
 	};
 	const formError = errors?.login?.message || errors?.password?.message;
-	const erorMessage = formError || serverError;
+	const errorMessage = formError || serverError;
 
 	return (
 		<div className={className}>
-			<h2>Авторизация</h2>
+			<H2>Авторизация</H2>
 			<form onSubmit={handleSubmit(onSubmit)}>
-				<input type="text" placeholder="Логин" {...register('login')}></input>
-				<input type="text" placeholder="Пароль" {...register('password')}></input>
-				<button type="button" disabled={!!formError}>
-					Войти
-				</button>
+				<Input
+					type="text"
+					placeholder="Логин"
+					{...register('login', {
+						onChange: () => setServerError(null),
+					})}
+				/>
+				<Input
+					type="text"
+					placeholder="Пароль"
+					{...register('password', {
+						onChange: () => setServerError(null),
+					})}
+				/>
+				<Button type="submit" disabled={!!formError}>
+					Авторизоваться
+				</Button>
 
-				{erorMessage && <div>{erorMessage}</div>}
+				{errorMessage && <ErrorMessage>{errorMessage}</ErrorMessage>}
 			</form>
+			<div>
+				<span>Еще нет аккаунта? </span>
+				<StyledLink to="/register">Зарегистрируйтесь!</StyledLink>
+			</div>
 		</div>
 	);
 };
@@ -69,15 +97,17 @@ export const Authorization = styled(AuthorizationContainer)`
 	margin: 0 auto;
 	width: fit-content;
 	text-align: center;
-
+	gap: 10px 0px;
 	& > form {
 		display: flex;
 		flex-direction: column;
-		gap: 5px 0;
+		gap: 10px 0;
+		width: 260px;
+		margin: 0 auto;
 	}
-	& > form > input {
-		width: 225px;
-		height: 30px;
-		padding: 0 10px;
+	& > div > span {
+		margin-top: 40px;
+		color: rgba(36, 36, 36, 0.6);
+		text-align: center;
 	}
 `;
