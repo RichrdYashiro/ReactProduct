@@ -1,8 +1,8 @@
-export const addUser = (login, password) => {
-	fetch('http://localhost:3005/users', {
+export const addUser = async (login, password) => {
+	const response = await fetch('http://localhost:3005/users', {
 		method: 'POST',
 		headers: {
-			'Content-Type': 'applicatiob/json;charset=utf-8',
+			'Content-Type': 'application/json;charset=utf-8',
 		},
 		body: JSON.stringify({
 			login,
@@ -11,4 +11,10 @@ export const addUser = (login, password) => {
 			role_id: 2,
 		}),
 	});
+
+	if (!response.ok) {
+		throw new Error('Ошибка регистрации');
+	}
+
+	return await response.json();
 };

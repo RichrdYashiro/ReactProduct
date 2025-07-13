@@ -1,15 +1,16 @@
-import { useEffect, useState } from 'react';
-import { useDispatch, useSelector, useStore } from 'react-redux';
+import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Navigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { server } from '../../../bff/server';
-import { Input, H2, Button } from '../../../components';
+import { Input, H2, Button, ErrorSReg } from '../../../components';
 import { SetUser } from '../../../actions';
 import styled from 'styled-components';
 import { selectUserRole } from '../../selectors';
+import { useResetForm } from '../../../hooks';
 import { ROLE } from '../../../constants';
 
 const authFormSchema = yup.object().shape({
@@ -44,28 +45,12 @@ const AuthorizationContainer = ({ className }) => {
 
 	const [serverError, setServerError] = useState(null);
 	const dispatch = useDispatch();
-	const store = useStore();
 	const roleId = useSelector(selectUserRole);
-	useEffect(() => {
-		let currentWasLogout = store.getState().app.wasLogout;
-		return store.subscribe(() => {
-			let prevWasLogout = currentWasLogout;
-			currentWasLogout = store.getState().app.wasLogout;
-
-			if (currentWasLogout !== prevWasLogout) {
-				reset();
-			}
-		});
-	}, [reset, store]);
+	useResetForm(reset);
 	const StyledLink = styled(Link)`
 		color: #2c282d;
 		font-weight: 700;
 		text-decoration: none;
-	`;
-	const ErrorMessage = styled.div`
-		color: #fff;
-		background: #ff222296;
-		border: 1px solid #333;
 	`;
 
 	const onSubmit = ({ login, password }) => {
@@ -106,7 +91,7 @@ const AuthorizationContainer = ({ className }) => {
 					Авторизоваться
 				</Button>
 
-				{errorMessage && <ErrorMessage>{errorMessage}</ErrorMessage>}
+				{errorMessage && <ErrorSReg>{errorMessage}</ErrorSReg>}
 			</form>
 			<div>
 				<span>Еще нет аккаунта? </span>
