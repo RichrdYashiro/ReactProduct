@@ -9,4 +9,9 @@ export const Icon = styled(IconContainer)`
 	font-size: ${({ size = '24px' }) => size};
 	font-weight: bold;
 	margin: ${({ margin = '0' }) => margin};
+
+	&:hover {
+		cursor: pointer;
+	
+
 `;
